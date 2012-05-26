@@ -14,16 +14,24 @@
 	</head>
 	<body>
 		<div id="navigation">
+			<div id="logo">Cluj Transport</div>
+			<div id="menu">
+				<ul>
+					<li id="b"><a href="../"><p>B</p></a></li>
+					<li id="t"><a href="#"><p>T</p></a></li>
+				</ul>
+			</div>
 		</div>
+		<div class="clear"></div>
 		<div id="wrapper">
 			<div id="in">
 				<form>
 					<div id="input-stage">
 						<label>
-							<input id="start" type="text" value="" />
+							<input id="start" type="text" value="" placeholder="Plecare"/>
 						</label>
 						<label>
-							<input id="stop" type="text" value="" />
+							<input id="stop" type="text" value="" placeholder="Destinatie" />
 						</label>
 						<input type="button" value="Calculeaza Ruta" id="routeButton" />
 					</div>
@@ -40,7 +48,7 @@
 		</div>
 		<div id="priceDisplay" class="modal hide">
       		<div class="modal-header">
-        		<h3>Aproximare Pret</h3>
+        		<h3 style="font-size: 32px;">Aproximare Pret</h3>
       		</div>
       		<div class="modal-body">
         		<div style="width: 40%; display: inline-block; vertical-align: middle;">

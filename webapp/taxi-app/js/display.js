@@ -22,7 +22,7 @@ function displayPrices(distance, prices) {
     $.each(prices, function (i, e) {
         $('#dlgPrices').append(
             $('<tr></tr>').append(
-                $('<td style="width: 10%;"></td>').append($('<img></img>').attr('src', '/images/' + e.l))
+                $('<td style="width: 10%;"></td>').append($('<img></img>').attr({'src': 'images/' + e.l, 'width':'32px', 'height':'32px'}))
             ).append(
                 $('<td style="width: 35%;"></td>').text(e.n)
             ).append(

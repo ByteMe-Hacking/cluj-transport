@@ -1,9 +1,86 @@
 #map-canvas {
 	width: 100%;
 }
+form {
+	margin: 0;
+}
+input {
+	font-size: 16px;
+}
+input[type='button'], .modal-footer .btn {
+	border-radius: 0 0 0 0;
+    float: right !important;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-top: 10px;
+    padding-top: 5px !important;
+    color: #000000;
+    background-color: #ffde00;
+    background-image: none;
+}
+.btn:hover{
+	background-position: 0 0;
+}
 #in label, #in input {
 	float: left;
+    height: 32px;
+    padding: 10px 5px 5px;
 }
 .clear {
 	clear: both;
 }
+#navigation {
+	border-bottom: 1px solid #DDDDDD;
+    height: 110px;
+}
+#logo {
+	background-image: url("../images/logo.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    float: left;
+    font-size: 32px;
+    height: 64px;
+    line-height: 75px;
+    margin-left: 25px;
+    margin-top: 25px;
+    padding-left: 64px;
+}
+#menu {
+	float: right;
+	margin-right: 25px;
+	margin-top: 25px;
+}
+#menu li {
+	float: left;
+	height: 48px;
+    line-height: 48px !important;
+    list-style-type: none;
+    width: 48px;
+    padding: 5px;
+}
+#menu p {
+	border: 1px solid #000000;
+	margin: 0;
+	height: 48px;
+    line-height: 48px !important;
+    width: 48px;
+    text-align: center;
+    font-size: 24px;
+}
+#menu a {
+	text-decoration: none;
+}
+#t a {
+	color: #000000;
+}
+#b a {
+	color: #FFFFFF;
+}
+#menu #b p {
+	background-color: #FF5A00;
+}
+#menu #t p {
+	background-color: #FFDE00;
+}
+    
+    
