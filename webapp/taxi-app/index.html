@@ -1,0 +1,69 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<title>Cluj Transport</title>
+		<link type="text/css" rel="stylesheet" href="css/lib/bootstrap.css" media="screen"/>
+		<link type="text/css" rel="stylesheet" href="css/style.css" media="screen"/>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDf8Aryv_1sj5IzTvk3Txqj7ryXz7XvNoQ&sensor=false&region=RO"></script>
+		<script type="text/javascript" src="js/lib/sprintf-0.7-beta1.js"></script>
+		<script type="text/javascript" src="js/lib/bootstrap-modal.js"></script>
+		<script type="text/javascript" src="js/taxi-cluj.js"></script>
+		<script type="text/javascript" src="js/map-handler.js"></script>
+		<script type="text/javascript" src="js/display.js"></script>
+	</head>
+	<body>
+		<div id="navigation">
+		</div>
+		<div id="wrapper">
+			<div id="in">
+				<form>
+					<div id="input-stage">
+						<label>
+							<input id="start" type="text" value="" />
+						</label>
+						<label>
+							<input id="stop" type="text" value="" />
+						</label>
+						<input type="button" value="Calculeaza Ruta" id="routeButton" />
+					</div>
+					<div id="output-stage" class="hide">
+						<input type="button" value="Calculeaza Tarife" id="calculateButton" />
+						<input type="button" value="Reseteaza" id="restartButton" />
+					</div>
+				</form>
+			</div>
+			<div class="clear"></div>
+			<div id="out">
+				<div id="map-canvas"></div>
+			</div>
+		</div>
+		<div id="priceDisplay" class="modal hide">
+      		<div class="modal-header">
+        		<h3>Aproximare Pret</h3>
+      		</div>
+      		<div class="modal-body">
+        		<div style="width: 40%; display: inline-block; vertical-align: middle;">
+          			<table style="width: 100%;">
+            			<tr>
+              				<td style="text-align: center; vertical-align: center;">
+                				Distanta totala
+                				<h1 id="dlgDistance" style="font-size: 270%;"></h1>
+                				pentru traiectoria selectata
+              				</td>
+            			</tr>
+          			</table>
+        		</div>
+        		<div style="width: 59%; display: inline-block; vertical-align: middle;">
+          			<table style="width: 100%;" id="dlgPrices">
+          			</table>
+        		</div>
+      		</div>
+      		<div class="modal-footer">
+        		<a href="#priceDisplay" data-toggle="modal" class="btn">
+          			Inapoi la harta
+        		</a>
+      		</div>
+    	</div>
+	</body>
+</html>

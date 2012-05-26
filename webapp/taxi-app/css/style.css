@@ -1,0 +1,9 @@
+#map-canvas {
+	width: 100%;
+}
+#in label, #in input {
+	float: left;
+}
+.clear {
+	clear: both;
+}
