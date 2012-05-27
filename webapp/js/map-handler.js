@@ -1,13 +1,16 @@
 var map;
 var directionsService;
 var directionsDisplay;
+var directionsService2;
+var directionsDisplay2;
 var geocoder;
 var xssd;
     linia25dCoordinates = [];
     linia25iCoordinates = [];
 var optimalDestinations = [];
-var startLat;
-var startLng;
+var startLat = 46.77089669999999;
+var startLng = 23.58486110;
+var serverData;
 function initializeMaps() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: new google.maps.LatLng(46.7772480, 23.59988990),
@@ -26,11 +29,23 @@ function initializeMaps() {
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
         routeArrived();
     });
+    
+        directionsService2 = new google.maps.DirectionsService();
+
+    directionsDisplay2 = new google.maps.DirectionsRenderer({
+        draggable: true
+    });
+    
+    directionsDisplay2.setMap(map);
+    
+    google.maps.event.addListener(directionsDisplay2, 'directions_changed', function() {
+        routeArrived();
+    });
 
     geocoder = new google.maps.Geocoder();
 
-    imageO = "images/orange.png";
-    imageB = "images/blue.png";
+    imageO = "images/no-logo.png";
+    imageB = "images/no-logo.png";
     var j = 0;
     var k = 0;
     for (var i=0; i < linia25.length; i++) {
@@ -71,16 +86,31 @@ function initializeMaps() {
 
   	linia25dPoly.setMap(map);
   	linia25iPoly.setMap(map);
-
+$.ajax({
+    type: 'GET',
+    url: 'http://192.168.1.105:9000/?callback=?',
+    dataType: 'jsonp',
+    crossDomain: true,
+    cache: true,
+    success: function( data, status ){
+        //alert( data.responseData.results.length + ' results found!' );
+        serverData = data[0];
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+        alert( 'Something goes wrong!' );
+        //alert(xhr.status);
+        //            alert(thrownError);
+    }
+});
 }
 
 
 function calculateCost() {
-    var distance = directionsDisplay.directions.routes[0].legs[0].distance.value;
-    calculatePrices(distance);
+    var distance1 = directionsDisplay.directions.routes[0].legs[0].distance.value;
+    var distance2 = directionsDisplay2.directions.routes[0].legs[0].distance.value;
+    calculatePrices(distance1, distance2);
 }
 function callback(response, status) {
-
   	if (status == google.maps.DistanceMatrixStatus.OK) {
     	var origins = response.originAddresses;
     	var destinations = response.destinationAddresses;
@@ -94,8 +124,8 @@ function callback(response, status) {
         		var duration = element.duration.text;
         		var from = origins[i];
         		var to = destinations[j];
-        		if (min > response.rows[i].elements[j].duration.value) {
-        			min = response.rows[i].elements[j].duration.value;
+        		if (min > response.rows[i].elements[j].distance.value) {
+        			min = response.rows[i].elements[j].distance.value;
         			k = j;
       			};
       		}
@@ -107,20 +137,47 @@ function callback(response, status) {
         unitSystem: google.maps.UnitSystem.METRIC
     };
     
+    
     directionsService.route(request, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
             routeArrived();
         }
     });
+    
+     var request2 = {
+        origin: serverData.lat + ', ' + serverData.long,
+        destination: optimalDestinations[k],
+        travelMode: google.maps.TravelMode.WALKING,
+        unitSystem: google.maps.UnitSystem.METRIC
+    };
+    
+    
+    directionsService2.route(request2, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay2.setDirections(result);
+            routeArrived();
+        }
+    });
+    
+    
   }
 }
 
 function fetchOptimalRoute() {
+	geocoder.geocode({
+            'address': $('#start').val()
+        }, function(r, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                startLat = releaseEvents.lat;
+				startLng = releaseEvents.lng;
+            }
+           });
+        
 	var j=0;
 
 	for (var i=0; i < linia25.length; i++) {
-		if ((startLat-linia25[i].lat<0.0001)&&(startLng-linia25[i].lng<0.0001)&&(linia25[i].statie!=0)) {
+		if ((startLat-linia25[i].lat<0.00001)&&(startLng-linia25[i].lng<0.00001)&&(linia25[i].statie!=0)) {
 			optimalDestinations[j] = new google.maps.LatLng(linia25[i].lat, linia25[i].lng);
 			j++;
 			if (j>=20) j=20;
@@ -129,7 +186,7 @@ function fetchOptimalRoute() {
 	var distanceMatrixService = new google.maps.DistanceMatrixService();
 	distanceMatrixService.getDistanceMatrix(
   		{
-    		origins: [$('#start').val() + ', 10000 cluj'],
+    		origins: [$('#start').val() + ', cluj'],
     		destinations: optimalDestinations,
     		travelMode: google.maps.TravelMode.WALKING,
   		}, callback);
@@ -145,7 +202,6 @@ function htmlGeoReceived(g) {
         }, function(r, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 $('#start').val(r[0].formatted_address);
-                $('#stop').focus();
             }
         });
     }

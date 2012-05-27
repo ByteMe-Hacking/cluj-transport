@@ -66,16 +66,6 @@ var priceMap = [
 ];
 
 
-function calculatePrices(distance) {
-    var prices = $.map(priceMap, function (taxi) {
-        var bd = Math.max(0, distance - taxi.included);
-        var cost = taxi.start + (bd / 1000) * taxi.kilometer;
-
-        return { n: taxi.name, l: taxi.logo, p: taxi.phone, c: cost };
-        
-    }).sort(function (a, b) {
-        return a.c < b.c ? -1 : 1;
-    });
-
-    displayPrices(distance, prices);
+function calculatePrices(distance1, distance2) {
+    displayPrices(distance1, distance2);
 }

@@ -17,27 +17,9 @@ function initLayout() {
 }
 
 
-function displayPrices(distance, prices) {
-    $('#dlgPrices').empty();
-    $.each(prices, function (i, e) {
-        $('#dlgPrices').append(
-            $('<tr></tr>').append(
-                $('<td style="width: 10%;"></td>').append($('<img></img>').attr({'src': 'images/' + e.l, 'width':'32px', 'height':'32px'}))
-            ).append(
-                $('<td style="width: 35%;"></td>').text(e.n)
-            ).append(
-                $('<td style="width: 20%;"></td>').text(sprintf('%.2f RON', e.c))
-            ).append(
-                $('<td style="width: 25%;"></td>').text(e.p).css({
-                    background: 'url(/images/phone.png) left center no-repeat',
-                    paddingLeft: '16px',
-                })
-            )
-        );
-    });
-
-    $('#dlgPrices tr:eq(0)').css('font-weight', 'bold');
-    $('#dlgDistance').text(sprintf('%.2f km', distance/1000));
+function displayPrices(distance1, distance2) {
+    $('#dlgDistance').text(sprintf('%.2f km', distance1/1000));
+    $('#dlgDistance2').text(sprintf('%.2f km', distance2/1000));
     $('#priceDisplay').modal();
 }
 
