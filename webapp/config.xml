@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+xmlns:gap = "http://phonegap.com/ns/1.0"
+id = "com.cluj.transport"
+version = "0.1.0">
+
+<name>Cluj Transport</name>
+
+<description>
+O aplicatie pentru mijloacele de transport in comun
+</description>
+
+<author href="http://byte-me.greensqr.com"
+email="alex@greensqr.com">
+Byte Me Team
+</author>
+
+<icon src="icon.png" gap:role="default" />
+<gap:splash src="icon.png" />
+
+<feature name="http://api.phonegap.com/1.0/network"/>
+</widget>
